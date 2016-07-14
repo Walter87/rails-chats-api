@@ -22,4 +22,16 @@ RSpec.describe SessionsController, type: :controller do
       it { should render_template :errors }
     end
   end
+
+  describe '#destroy' do
+    before { @session = double }
+
+    context do
+      before { expect(Session).to receive(:new).with(email: 'kathy@hartlova.com', password: 'bigboobs').and_return(@session) }
+
+      before { delete :destroy, session: { token: @session }  }
+
+      it { should respond_with(200)}
+    end
+  end
 end
